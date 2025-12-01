@@ -169,61 +169,194 @@ class InteractiveFeatures {
 }
 
 /* ========================================
-   Dynamic Weather Data
+   NEA Weather API Manager
    ======================================== */
 
 class WeatherManager {
     constructor() {
         this.weatherGrid = document.getElementById('weather-grid');
-        this.weatherData = [
-            {
-                day: 'Tomorrow',
-                temp: '22°C',
-                icon: '☀️',
-                condition: 'Sunny, Light Breeze',
-                tide: 'Tide: 0.70 m rising'
-            },
-            {
-                day: 'Next Weekend',
-                temp: '20°C',
-                icon: '⛅',
-                condition: 'Partly Cloudy',
-                tide: 'Tide: 0.55 m falling'
-            },
-            {
-                day: 'Conditions',
-                temp: '18°C',
-                icon: '🌊',
-                condition: 'Water Temp',
-                tide: 'Wave Height: 0.91 m'
-            }
-        ];
+        this.apiEndpoint = 'https://api.data.gov.sg/v1/environment/air-temperature';
+        this.forecastEndpoint = 'https://api.data.gov.sg/v1/environment/4day-weather-forecast';
         this.init();
     }
 
-    init() {
-        // Weather can be dynamically updated
-        this.updateWeather();
+    async init() {
+        try {
+            // Fetch 4-day forecast data
+            await this.fetchWeatherForecast();
+        } catch (error) {
+            console.error('Error initializing weather:', error);
+            this.showErrorState();
+        }
     }
 
-    updateWeather() {
+    async fetchWeatherForecast() {
+        try {
+            const response = await fetch(this.forecastEndpoint);
+            
+            if (!response.ok) {
+                throw new Error(`API error: ${response.status}`);
+            }
+
+            const data = await response.json();
+            this.parseAndDisplayForecast(data);
+        } catch (error) {
+            console.error('Failed to fetch weather forecast:', error);
+            // Fall back to current temperature API
+            await this.fetchCurrentTemperature();
+        }
+    }
+
+    async fetchCurrentTemperature() {
+        try {
+            const response = await fetch(this.apiEndpoint);
+            
+            if (!response.ok) {
+                throw new Error(`API error: ${response.status}`);
+            }
+
+            const data = await response.json();
+            this.parseAndDisplayTemperature(data);
+        } catch (error) {
+            console.error('Failed to fetch temperature data:', error);
+            this.showErrorState();
+        }
+    }
+
+    parseAndDisplayForecast(data) {
+        if (!data.items || !data.items[0]) {
+            this.showErrorState();
+            return;
+        }
+
+        const forecasts = data.items[0].forecasts;
+        
+        // Display first 4 days of forecast
+        const displayForecasts = forecasts.slice(0, 4);
+
         if (!this.weatherGrid) return;
 
-        // Simulate live weather updates
-        setInterval(() => {
-            const weatherCards = this.weatherGrid.querySelectorAll('.weather-card');
-            weatherCards.forEach((card, index) => {
-                // Add subtle animation on update
-                card.style.opacity = '0.8';
-                setTimeout(() => {
-                    card.style.opacity = '1';
-                }, 500);
-            });
-        }, 30000); // Update every 30 seconds
+        this.weatherGrid.innerHTML = '';
+
+        displayForecasts.forEach((forecast, index) => {
+            const card = this.createWeatherCard(forecast, index);
+            this.weatherGrid.appendChild(card);
+        });
+    }
+
+    parseAndDisplayTemperature(data) {
+        if (!data.items || !data.items[0]) {
+            this.showErrorState();
+            return;
+        }
+
+        // Get temperature readings for Pasir Ris area
+        const readings = data.items[0].readings;
+        
+        // Find closest station to Pasir Ris
+        const pasirRisReading = readings.find(r => 
+            r.station_id === 'S109' || // Pasir Ris station
+            r.station_id === 'S81'   // Changi Airport (near Pasir Ris)
+        ) || readings[0];
+
+        if (!this.weatherGrid) return;
+
+        this.weatherGrid.innerHTML = '';
+
+        // Create 4 identical cards with current data as fallback
+        for (let i = 0; i < 4; i++) {
+            const card = document.createElement('div');
+            card.className = 'weather-card';
+            
+            const dayName = this.getDayName(i);
+            const temp = Math.round(pasirRisReading.value);
+
+            card.innerHTML = `
+                <div class="weather-icon">${this.getWeatherIcon(i)}</div>
+                <h3>${dayName}</h3>
+                <p class="temp">${temp}°C</p>
+                <p class="condition">Temperature Reading</p>
+                <p class="humidity">Station: ${pasirRisReading.station_id}</p>
+            `;
+
+            this.weatherGrid.appendChild(card);
+        }
+    }
+
+    createWeatherCard(forecast, index) {
+        const card = document.createElement('div');
+        card.className = 'weather-card';
+
+        const date = new Date(forecast.date);
+        const dayName = this.formatDate(date);
+        
+        // Parse forecast text for better display
+        const forecast_text = forecast.forecast ? forecast.forecast.toLowerCase() : 'Fair';
+        const icon = this.mapWeatherIcon(forecast_text);
+        
+        // Extract temperature range if available
+        const tempInfo = forecast.relative_humidity 
+            ? `Humidity: ${forecast.relative_humidity}%`
+            : 'No data';
+
+        card.innerHTML = `
+            <div class="weather-icon">${icon}</div>
+            <h3>${dayName}</h3>
+            <p class="condition">${forecast.forecast || 'Fair'}</p>
+            <p class="wind">${tempInfo}</p>
+        `;
+
+        return card;
+    }
+
+    mapWeatherIcon(forecastText) {
+        if (forecastText.includes('rain') || forecastText.includes('thundery')) {
+            return '🌧️';
+        } else if (forecastText.includes('cloud') || forecastText.includes('overcast')) {
+            return '☁️';
+        } else if (forecastText.includes('fair') || forecastText.includes('clear')) {
+            return '☀️';
+        } else if (forecastText.includes('wind') || forecastText.includes('strong')) {
+            return '💨';
+        }
+        return '🌤️';
+    }
+
+    getWeatherIcon(dayIndex) {
+        const icons = ['☀️', '⛅', '🌤️', '🌊'];
+        return icons[dayIndex % icons.length];
+    }
+
+    getDayName(dayIndex) {
+        const days = ['Today', 'Tomorrow', 'Day 3', 'Day 4'];
+        return days[dayIndex];
+    }
+
+    formatDate(date) {
+        const options = { weekday: 'short', month: 'short', day: 'numeric' };
+        return date.toLocaleDateString('en-SG', options);
+    }
+
+    showErrorState() {
+        if (!this.weatherGrid) return;
+
+        this.weatherGrid.innerHTML = `
+            <div class="weather-card" style="grid-column: 1 / -1; background: linear-gradient(135deg, #fee 0%, #ffe0e0 100%);">
+                <p style="color: #f44336; font-weight: 500;">Unable to load weather data</p>
+                <p style="color: #d32f2f; font-size: 0.9rem; margin-top: 8px;">
+                    Please try again later. Data provided by NEA.
+                </p>
+            </div>
+        `;
     }
 
     getWeatherData() {
-        return this.weatherData;
+        // Return data for external use
+        return {
+            source: 'NEA Singapore',
+            endpoint: this.forecastEndpoint,
+            timestamp: new Date()
+        };
     }
 }
 
