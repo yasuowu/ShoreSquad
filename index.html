@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ShoreSquad - Rally your crew, track weather, and hit the next beach cleanup!">
+    <meta name="theme-color" content="#0066cc">
+    <title>ShoreSquad - Beach Cleanup Community</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Navigation Header -->
+    <header class="navbar">
+        <div class="navbar-container">
+            <div class="logo">
+                <svg class="logo-icon" viewBox="0 0 40 40" width="40" height="40">
+                    <circle cx="20" cy="20" r="18" fill="none" stroke="currentColor" stroke-width="2"/>
+                    <path d="M 12 20 Q 20 28 28 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                <span class="logo-text">ShoreSquad</span>
+            </div>
+            <nav class="nav-menu">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="#cleanup-map" class="nav-link">Map</a>
+                <a href="#weather" class="nav-link">Weather</a>
+                <a href="#community" class="nav-link">Community</a>
+            </nav>
+            <button class="cta-button">Join Squad</button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Rally Your Crew</h1>
+            <p class="hero-subtitle">Track weather, plan cleanups, and make ocean action social</p>
+            <div class="hero-buttons">
+                <button class="btn btn-primary">Start a Cleanup</button>
+                <button class="btn btn-secondary">Find Nearby Events</button>
+            </div>
+        </div>
+        <div class="hero-background">
+            <div class="wave wave-1"></div>
+            <div class="wave wave-2"></div>
+            <div class="wave wave-3"></div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2>Why ShoreSquad?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" width="40" height="40" fill="currentColor">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                    </div>
+                    <h3>Smart Planning</h3>
+                    <p>Real-time weather updates and tide forecasts to plan the perfect cleanup day</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" width="40" height="40" fill="currentColor">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/>
+                        </svg>
+                    </div>
+                    <h3>Community Vibes</h3>
+                    <p>Connect with eco-warriors in your area and build your cleanup crew</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" width="40" height="40" fill="currentColor">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+                        </svg>
+                    </div>
+                    <h3>Interactive Maps</h3>
+                    <p>Discover cleanup hotspots and coordinate events with visual mapping</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section id="cleanup-map" class="map-section">
+        <div class="container">
+            <h2>Find Your Next Cleanup</h2>
+            <div class="map-container" id="map">
+                <div class="map-placeholder">
+                    <p>📍 Interactive map coming soon</p>
+                    <p>Real-time cleanup location tracker</p>
+                </div>
+            </div>
+            <div class="map-filters">
+                <button class="filter-btn active" data-filter="all">All Events</button>
+                <button class="filter-btn" data-filter="upcoming">Upcoming</button>
+                <button class="filter-btn" data-filter="nearby">Nearby</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Weather Section -->
+    <section id="weather" class="weather-section">
+        <div class="container">
+            <h2>Weather Intelligence</h2>
+            <div class="weather-grid" id="weather-grid">
+                <div class="weather-card">
+                    <div class="weather-icon">☀️</div>
+                    <h3>Tomorrow</h3>
+                    <p class="temp">72°F</p>
+                    <p class="condition">Sunny, Light Breeze</p>
+                    <p class="tide">Tide: 2.3 ft rising</p>
+                </div>
+                <div class="weather-card">
+                    <div class="weather-icon">⛅</div>
+                    <h3>Next Weekend</h3>
+                    <p class="temp">68°F</p>
+                    <p class="condition">Partly Cloudy</p>
+                    <p class="tide">Tide: 1.8 ft falling</p>
+                </div>
+                <div class="weather-card">
+                    <div class="weather-icon">🌊</div>
+                    <h3>Conditions</h3>
+                    <p class="temp">65°F</p>
+                    <p class="condition">Water Temp</p>
+                    <p class="tide">Wave Height: 3 ft</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Section -->
+    <section id="community" class="community-section">
+        <div class="container">
+            <h2>Join the Movement</h2>
+            <div class="stats">
+                <div class="stat">
+                    <h3>1,200+</h3>
+                    <p>Active Members</p>
+                </div>
+                <div class="stat">
+                    <h3>45</h3>
+                    <p>Cleanups This Month</p>
+                </div>
+                <div class="stat">
+                    <h3>2.5K lbs</h3>
+                    <p>Trash Collected</p>
+                </div>
+            </div>
+            <div class="testimonials">
+                <div class="testimonial">
+                    <p>"ShoreSquad made it so easy to organize my crew and pick the perfect day!"</p>
+                    <span class="author">- Maya, 22</span>
+                </div>
+                <div class="testimonial">
+                    <p>"Love the weather integration - no more wasted trips!"</p>
+                    <span class="author">- Josh, 19</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 ShoreSquad. Making beaches cleaner, one crew at a time.</p>
+            <div class="social-links">
+                <a href="#" aria-label="Twitter">Twitter</a>
+                <a href="#" aria-label="Instagram">Instagram</a>
+                <a href="#" aria-label="Discord">Discord</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

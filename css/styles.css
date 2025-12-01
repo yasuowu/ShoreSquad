@@ -1,0 +1,671 @@
+/* ========================================
+   ShoreSquad - Ocean-Inspired Color Palette
+   ======================================== */
+
+:root {
+    /* Primary Colors - Ocean & Beach Theme */
+    --primary-blue: #0066cc;
+    --ocean-teal: #00a8cc;
+    --sand-yellow: #ffc857;
+    --coral-accent: #ff6b6b;
+    
+    /* Secondary Colors */
+    --deep-blue: #003d7a;
+    --light-aqua: #e0f7ff;
+    --white: #ffffff;
+    --dark-gray: #1a1a1a;
+    --medium-gray: #666666;
+    --light-gray: #f5f5f5;
+    
+    /* Functional Colors */
+    --success: #4caf50;
+    --warning: #ff9800;
+    --error: #f44336;
+    
+    /* Typography */
+    --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --font-size-base: 16px;
+    --line-height-base: 1.6;
+    
+    /* Spacing */
+    --spacing-unit: 8px;
+    --spacing-xs: calc(var(--spacing-unit) * 1);
+    --spacing-sm: calc(var(--spacing-unit) * 2);
+    --spacing-md: calc(var(--spacing-unit) * 3);
+    --spacing-lg: calc(var(--spacing-unit) * 4);
+    --spacing-xl: calc(var(--spacing-unit) * 6);
+    --spacing-2xl: calc(var(--spacing-unit) * 8);
+    
+    /* Border & Shadows */
+    --border-radius: 8px;
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.15);
+    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.2);
+    
+    /* Transitions */
+    --transition-fast: 150ms ease-in-out;
+    --transition-base: 300ms ease-in-out;
+    --transition-slow: 500ms ease-in-out;
+}
+
+/* ========================================
+   Global Styles
+   ======================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-family);
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-base);
+    color: var(--dark-gray);
+    background-color: var(--white);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-lg);
+}
+
+/* ========================================
+   Navigation & Header
+   ======================================== */
+
+.navbar {
+    background: linear-gradient(135deg, var(--primary-blue) 0%, var(--ocean-teal) 100%);
+    color: var(--white);
+    padding: var(--spacing-md) 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: var(--shadow-md);
+}
+
+.navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-lg);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--white);
+}
+
+.logo-icon {
+    color: var(--sand-yellow);
+}
+
+.logo-text {
+    background: linear-gradient(135deg, var(--white) 0%, var(--light-aqua) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.nav-menu {
+    display: flex;
+    gap: var(--spacing-lg);
+    list-style: none;
+}
+
+.nav-link {
+    color: var(--white);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color var(--transition-fast), text-shadow var(--transition-fast);
+    position: relative;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--sand-yellow);
+    text-shadow: 0 0 8px rgba(255, 200, 87, 0.3);
+}
+
+.cta-button {
+    background-color: var(--sand-yellow);
+    color: var(--dark-gray);
+    border: none;
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border-radius: var(--border-radius);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.cta-button:hover {
+    background-color: #ffb74d;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+/* ========================================
+   Hero Section
+   ======================================== */
+
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--light-aqua) 0%, var(--white) 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-content {
+    text-align: center;
+    z-index: 2;
+    animation: slideUp 0.8s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: var(--primary-blue);
+    margin-bottom: var(--spacing-md);
+    line-height: 1.2;
+}
+
+.hero-subtitle {
+    font-size: 1.25rem;
+    color: var(--medium-gray);
+    margin-bottom: var(--spacing-xl);
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: var(--spacing-md);
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn {
+    padding: var(--spacing-md) var(--spacing-xl);
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-base);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary-blue) 0%, var(--ocean-teal) 100%);
+    color: var(--white);
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+}
+
+.btn-secondary {
+    background-color: var(--white);
+    color: var(--primary-blue);
+    border: 2px solid var(--primary-blue);
+}
+
+.btn-secondary:hover {
+    background-color: var(--primary-blue);
+    color: var(--white);
+    transform: translateY(-3px);
+}
+
+/* Wave Animation */
+.hero-background {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 150px;
+    opacity: 0.3;
+}
+
+.wave {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 200%;
+    height: 100px;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"><path d="M0,50 Q300,100 600,50 T1200,50 L1200,120 L0,120 Z" fill="%230066cc" opacity="0.5"/></svg>');
+    background-repeat: repeat-x;
+    animation: wave 15s linear infinite;
+}
+
+.wave-2 {
+    bottom: 10px;
+    animation: wave 10s linear infinite reverse;
+    opacity: 0.5;
+}
+
+.wave-3 {
+    bottom: 20px;
+    animation: wave 8s linear infinite;
+    opacity: 0.3;
+}
+
+@keyframes wave {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(50%);
+    }
+}
+
+/* ========================================
+   Features Section
+   ======================================== */
+
+.features {
+    padding: var(--spacing-2xl) 0;
+    background-color: var(--light-gray);
+}
+
+.features h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: var(--primary-blue);
+    margin-bottom: var(--spacing-2xl);
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-xl);
+}
+
+.feature-card {
+    background-color: var(--white);
+    padding: var(--spacing-xl);
+    border-radius: var(--border-radius);
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition-base);
+}
+
+.feature-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
+}
+
+.feature-icon {
+    color: var(--ocean-teal);
+    margin-bottom: var(--spacing-md);
+}
+
+.feature-card h3 {
+    color: var(--primary-blue);
+    font-size: 1.25rem;
+    margin-bottom: var(--spacing-sm);
+}
+
+.feature-card p {
+    color: var(--medium-gray);
+    line-height: 1.8;
+}
+
+/* ========================================
+   Map Section
+   ======================================== */
+
+.map-section {
+    padding: var(--spacing-2xl) 0;
+    background-color: var(--white);
+}
+
+.map-section h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: var(--primary-blue);
+    margin-bottom: var(--spacing-xl);
+}
+
+.map-container {
+    width: 100%;
+    height: 500px;
+    background: linear-gradient(135deg, var(--light-aqua) 0%, var(--white) 100%);
+    border: 3px solid var(--ocean-teal);
+    border-radius: var(--border-radius);
+    margin-bottom: var(--spacing-xl);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.map-placeholder {
+    text-align: center;
+    font-size: 1.5rem;
+    color: var(--medium-gray);
+}
+
+.map-placeholder p:first-child {
+    font-size: 3rem;
+    margin-bottom: var(--spacing-sm);
+}
+
+.map-filters {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-md);
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border: 2px solid var(--ocean-teal);
+    background-color: var(--white);
+    color: var(--primary-blue);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-weight: 500;
+    transition: all var(--transition-base);
+}
+
+.filter-btn.active {
+    background-color: var(--ocean-teal);
+    color: var(--white);
+}
+
+.filter-btn:hover {
+    background-color: var(--ocean-teal);
+    color: var(--white);
+}
+
+/* ========================================
+   Weather Section
+   ======================================== */
+
+.weather-section {
+    padding: var(--spacing-2xl) 0;
+    background: linear-gradient(135deg, var(--light-aqua) 0%, #e8f4f8 100%);
+}
+
+.weather-section h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: var(--primary-blue);
+    margin-bottom: var(--spacing-xl);
+}
+
+.weather-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-lg);
+}
+
+.weather-card {
+    background: linear-gradient(135deg, var(--white) 0%, var(--light-aqua) 100%);
+    padding: var(--spacing-lg);
+    border-radius: var(--border-radius);
+    border-left: 4px solid var(--ocean-teal);
+    box-shadow: var(--shadow-sm);
+    text-align: center;
+    transition: all var(--transition-base);
+}
+
+.weather-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+}
+
+.weather-icon {
+    font-size: 3rem;
+    margin-bottom: var(--spacing-sm);
+}
+
+.weather-card h3 {
+    color: var(--primary-blue);
+    margin-bottom: var(--spacing-sm);
+}
+
+.weather-card .temp {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--ocean-teal);
+    margin-bottom: var(--spacing-xs);
+}
+
+.weather-card .condition {
+    color: var(--medium-gray);
+    font-size: 0.95rem;
+}
+
+.weather-card .tide {
+    color: var(--medium-gray);
+    font-size: 0.9rem;
+    margin-top: var(--spacing-sm);
+}
+
+/* ========================================
+   Community Section
+   ======================================== */
+
+.community-section {
+    padding: var(--spacing-2xl) 0;
+    background-color: var(--white);
+}
+
+.community-section h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: var(--primary-blue);
+    margin-bottom: var(--spacing-xl);
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-2xl);
+    text-align: center;
+}
+
+.stat {
+    padding: var(--spacing-lg);
+    background: linear-gradient(135deg, var(--light-aqua) 0%, var(--white) 100%);
+    border-radius: var(--border-radius);
+    border: 2px solid var(--ocean-teal);
+}
+
+.stat h3 {
+    font-size: 2rem;
+    color: var(--ocean-teal);
+    margin-bottom: var(--spacing-sm);
+}
+
+.stat p {
+    color: var(--medium-gray);
+    font-weight: 500;
+}
+
+.testimonials {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-lg);
+}
+
+.testimonial {
+    background-color: var(--light-gray);
+    padding: var(--spacing-lg);
+    border-radius: var(--border-radius);
+    border-left: 4px solid var(--sand-yellow);
+    box-shadow: var(--shadow-sm);
+}
+
+.testimonial p {
+    font-style: italic;
+    color: var(--dark-gray);
+    margin-bottom: var(--spacing-sm);
+    line-height: 1.8;
+}
+
+.testimonial .author {
+    color: var(--ocean-teal);
+    font-weight: 600;
+    display: block;
+}
+
+/* ========================================
+   Footer
+   ======================================== */
+
+.footer {
+    background: linear-gradient(135deg, var(--primary-blue) 0%, var(--ocean-teal) 100%);
+    color: var(--white);
+    padding: var(--spacing-xl) 0;
+    text-align: center;
+}
+
+.footer p {
+    margin-bottom: var(--spacing-md);
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-lg);
+}
+
+.social-links a {
+    color: var(--sand-yellow);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all var(--transition-fast);
+}
+
+.social-links a:hover {
+    text-decoration: underline;
+}
+
+/* ========================================
+   Accessibility & Responsive Design
+   ======================================== */
+
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .nav-menu {
+        display: none;
+    }
+    
+    .cta-button {
+        display: none;
+    }
+    
+    .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .btn {
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    .features h2,
+    .map-section h2,
+    .weather-section h2,
+    .community-section h2 {
+        font-size: 2rem;
+    }
+    
+    .map-container {
+        height: 300px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 1.75rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+    
+    .container {
+        padding: 0 var(--spacing-md);
+    }
+    
+    .features-grid,
+    .weather-grid,
+    .testimonials {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: more) {
+    .navbar {
+        border-bottom: 3px solid var(--dark-gray);
+    }
+    
+    .feature-card,
+    .weather-card {
+        border: 2px solid var(--dark-gray);
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    .wave {
+        display: none;
+    }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --dark-gray: #f5f5f5;
+        --light-gray: #2a2a2a;
+        --white: #1a1a1a;
+        --medium-gray: #cccccc;
+    }
+    
+    body {
+        background-color: var(--white);
+    }
+}
