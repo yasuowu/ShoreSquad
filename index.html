@@ -88,11 +88,25 @@
     <section id="cleanup-map" class="map-section">
         <div class="container">
             <h2>Find Your Next Cleanup</h2>
-            <div class="map-container" id="map">
-                <div class="map-placeholder">
-                    <p>📍 Interactive map coming soon</p>
-                    <p>Real-time cleanup location tracker</p>
+            <div class="map-info">
+                <div class="next-cleanup-info">
+                    <h3>🌊 Next Cleanup Event</h3>
+                    <p><strong>Location:</strong> Pasir Ris Beach</p>
+                    <p><strong>Coordinates:</strong> 1.381497°N, 103.955574°E</p>
+                    <p><strong>Activity:</strong> Street View Asia Beach Cleanup</p>
                 </div>
+            </div>
+            <div class="map-container" id="map">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d3988.8196084547606!2d103.955574!3d1.381497!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2ssg!4v1701432000000!5m2!1sen!2ssg" 
+                    width="100%" 
+                    height="500" 
+                    style="border:0; border-radius: 8px;" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade"
+                    title="Pasir Ris Beach - Next CleanUp Location">
+                </iframe>
             </div>
             <div class="map-filters">
                 <button class="filter-btn active" data-filter="all">All Events</button>
