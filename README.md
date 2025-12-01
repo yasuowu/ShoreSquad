@@ -40,6 +40,18 @@ ShoreSquad is a modern web application designed to mobilize young people to clea
 📱 **Mobile-First**: Responsive design for all devices (320px to 1920px)
 ⚡ **Performance**: Optimized animations and lazy loading
 🎯 **User-Centric**: Intuitive navigation and clear CTAs
+🌍 **Metric System**: All measurements use International System of Units (SI)
+
+### Measurement Standards
+
+ShoreSquad uses the **metric system** exclusively for global accessibility:
+
+| Measurement | Unit | Example |
+|-------------|------|---------|
+| Temperature | °C (Celsius) | Water: 18°C, Air: 22°C |
+| Distance | m (meters) | Tide: 0.70 m, Wave: 0.91 m |
+| Mass | kg (kilograms) | Trash collected: 1.1K kg |
+| Coordinates | Degrees Decimal | 1.381497°N, 103.955574°E |
 
 ---
 

@@ -178,24 +178,24 @@ class WeatherManager {
         this.weatherData = [
             {
                 day: 'Tomorrow',
-                temp: '72°F',
+                temp: '22°C',
                 icon: '☀️',
                 condition: 'Sunny, Light Breeze',
-                tide: 'Tide: 2.3 ft rising'
+                tide: 'Tide: 0.70 m rising'
             },
             {
                 day: 'Next Weekend',
-                temp: '68°F',
+                temp: '20°C',
                 icon: '⛅',
                 condition: 'Partly Cloudy',
-                tide: 'Tide: 1.8 ft falling'
+                tide: 'Tide: 0.55 m falling'
             },
             {
                 day: 'Conditions',
-                temp: '65°F',
+                temp: '18°C',
                 icon: '🌊',
                 condition: 'Water Temp',
-                tide: 'Wave Height: 3 ft'
+                tide: 'Wave Height: 0.91 m'
             }
         ];
         this.init();
