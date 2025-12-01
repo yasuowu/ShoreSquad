@@ -122,59 +122,141 @@ ShoreSquad/
 - **Browser**: Modern browser with ES6+ support (Chrome, Firefox, Safari, Edge)
 - **Editor**: Visual Studio Code (recommended)
 - **Live Server**: VS Code Live Server extension
+- **Git**: For version control and deployment
 
-### Installation
+### Installation & Quick Start
 
-1. **Clone or download** the ShoreSquad project
+#### Step 1: Clone or Download
+```bash
+# Clone the repository
+git clone https://github.com/yasuowu/ShoreSquad.git
+cd ShoreSquad
+```
 
-2. **Open in VS Code**:
-   ```bash
-   code .
-   ```
+#### Step 2: Open in VS Code
+```bash
+code .
+```
 
-3. **Install Live Server Extension** (if not already installed):
-   - Open VS Code Extensions (Ctrl+Shift+X)
-   - Search for "Live Server"
-   - Install by Ritwick Dey
+#### Step 3: Install Live Server Extension
+1. Open VS Code
+2. Press `Ctrl+Shift+X` (or `Cmd+Shift+X` on Mac)
+3. Search for "**Live Server**"
+4. Click **Install** (by Ritwick Dey)
 
-4. **Start Live Server**:
-   - Right-click `index.html`
-   - Select "Open with Live Server"
-   - Browser opens at `http://localhost:5500`
+#### Step 4: Start Development Server
+1. Right-click on `index.html`
+2. Select **"Open with Live Server"**
+3. Browser automatically opens at `http://localhost:5500`
+
+### Live Server Configuration
+
+ShoreSquad is configured with `.vscode/settings.json`:
+
+```json
+{
+    "liveServer.settings.port": 5500,
+    "liveServer.settings.root": "/",
+    "liveServer.settings.CustomBrowser": "chrome"
+}
+```
 
 ### Hot Reload Development
 
-The Live Server extension provides hot reload on file changes. Just edit files and save!
+- **Changes Auto-Sync**: Edit files and save → Live Server auto-reloads
+- **CSS Hot Reload**: CSS updates reflect immediately
+- **JS Changes**: JavaScript updates after full page reload
+- **HTML Updates**: Full reload for HTML changes
+
+### File Editing Tips
+
+- **CSS**: Edit `css/styles.css` - changes appear instantly
+- **HTML**: Edit `index.html` - full page reloads on save
+- **JavaScript**: Edit `js/app.js` - reload required for changes
+- **Console Debugging**: Press `F12` to open DevTools
 
 ---
 
-## ✨ JavaScript Features
+## ✨ JavaScript Features & Architecture
+
+### Error Handling & Robustness
+
+ShoreSquad includes comprehensive error handling:
+
+```javascript
+// Try-catch blocks in all async operations
+class WeatherManager {
+    async init() {
+        try {
+            LoadingOverlay.show('Fetching weather data...');
+            await this.fetchWeatherForecast();
+            LoadingOverlay.hide();
+        } catch (error) {
+            console.error('Error:', error);
+            LoadingOverlay.hide();
+            Toast.error('Failed to load weather.');
+        }
+    }
+}
+```
+
+### User Feedback System
+
+#### Toast Notifications
+```javascript
+// Different notification types
+Toast.success('Action completed!');        // Green
+Toast.error('Something went wrong!');       // Red
+Toast.warning('Please be careful');         // Orange
+Toast.info('Here\'s some information');     // Blue
+```
+
+#### Loading Overlays
+```javascript
+// Show/hide loading spinner
+LoadingOverlay.show('Processing...');
+// ... do work ...
+LoadingOverlay.hide();
+```
 
 ### Performance Optimizations
 
-- **Debounce**: Scroll event handling
-- **Throttle**: Performance-intensive calculations
-- **Lazy Loading**: Intersection Observer for images and cards
-- **Preloading**: Critical resources loaded asynchronously
+- **Debounce**: Reduces scroll event firing to every 150ms
+- **Throttle**: Limits navigation updates to every 100ms
+- **Lazy Loading**: Images and cards load as they enter viewport
+- **Preloading**: Critical CSS and resources preload asynchronously
+- **Shimmer Effects**: Smooth loading animations
 
 ### Browser Support
 
-- Chrome 90+
-- Firefox 88+
-- Safari 14+
-- Edge 90+
+- ✅ Chrome 90+
+- ✅ Firefox 88+
+- ✅ Safari 14+
+- ✅ Edge 90+
+- ✅ Mobile browsers (iOS Safari, Chrome Mobile)
 
-### Key JavaScript Patterns
+### Global API Reference
+
+Access ShoreSquad features from browser console:
 
 ```javascript
-// Smooth scroll navigation
-navigation.handleNavClick(e);
+// Navigation
+window.ShoreSquad.navigation.updateActiveLink();
 
-// Interactive notifications
-features.showNotification('Message', 'info');
+// Interactive features
+window.ShoreSquad.features.handleCTAClick(event);
 
-// Performance monitoring
-window.ShoreSquad.performance.monitorPerformance();
+// Weather
+window.ShoreSquad.weather.getWeatherData();
+
+// Accessibility
+window.ShoreSquad.accessibility.announce('Message for screen readers');
+
+// Toast notifications
+window.ShoreSquad.Toast.success('Success message!');
+
+// Loading state
+window.ShoreSquad.LoadingOverlay.show('Loading...');
 ```
 
 ---

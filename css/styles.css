@@ -755,3 +755,341 @@ body {
         background-color: var(--white);
     }
 }
+
+/* ========================================
+   Loading Spinners & Feedback
+   ======================================== */
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(0, 102, 204, 0.1);
+    border-top: 4px solid var(--primary-blue);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.spinner-sm {
+    width: 24px;
+    height: 24px;
+    border-width: 2px;
+}
+
+.spinner-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    backdrop-filter: blur(4px);
+}
+
+.toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--primary-blue);
+    color: white;
+    padding: 16px 24px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-lg);
+    z-index: 1000;
+    animation: slideInUp 0.3s ease-out;
+    max-width: 300px;
+}
+
+.toast.success {
+    background: var(--success);
+}
+
+.toast.error {
+    background: var(--error);
+}
+
+.toast.warning {
+    background: var(--warning);
+}
+
+@keyframes slideInUp {
+    from {
+        transform: translateY(100px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.error-boundary {
+    background-color: #fee;
+    border: 2px solid var(--error);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-lg);
+    text-align: center;
+    color: var(--error);
+}
+
+.error-boundary h3 {
+    margin-bottom: var(--spacing-sm);
+}
+
+.error-boundary p {
+    font-size: 0.9rem;
+    margin-bottom: var(--spacing-md);
+}
+
+.retry-button {
+    background: var(--error);
+    color: white;
+    border: none;
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-weight: 600;
+    transition: all var(--transition-fast);
+}
+
+.retry-button:hover {
+    background: #d32f2f;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+/* ========================================
+   Enhanced Visual Polish
+   ======================================== */
+
+/* Improved button hover states */
+.btn {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.btn:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+/* Card hover lift effect */
+.feature-card,
+.weather-card,
+.testimonial,
+.stat {
+    transition: all var(--transition-base);
+}
+
+.feature-card:hover,
+.weather-card:hover,
+.stat:hover {
+    box-shadow: var(--shadow-lg);
+}
+
+/* Smooth fade-in for sections */
+section {
+    animation: fadeIn 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Improved focus states for accessibility */
+button:focus,
+a:focus,
+input:focus {
+    outline: 3px solid var(--ocean-teal);
+    outline-offset: 2px;
+}
+
+/* Smooth link transitions */
+a {
+    transition: color var(--transition-fast);
+}
+
+/* Better form styling */
+input, textarea, select {
+    font-family: inherit;
+    font-size: inherit;
+    border: 2px solid var(--light-gray);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-md);
+    transition: border-color var(--transition-fast);
+}
+
+input:focus, textarea:focus, select:focus {
+    border-color: var(--ocean-teal);
+}
+
+/* Enhanced visibility for small text */
+small, .small-text {
+    font-size: 0.85rem;
+    color: var(--medium-gray);
+}
+
+/* Improved hr styling */
+hr {
+    border: none;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--ocean-teal), transparent);
+    margin: var(--spacing-xl) 0;
+}
+
+/* Badge styling */
+.badge {
+    display: inline-block;
+    background: var(--ocean-teal);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.badge.success {
+    background: var(--success);
+}
+
+.badge.warning {
+    background: var(--warning);
+}
+
+/* ========================================
+   Responsive Improvements
+   ======================================== */
+
+@media (max-width: 1024px) {
+    .container {
+        max-width: 960px;
+    }
+
+    .hero-title {
+        font-size: 2.5rem;
+    }
+
+    .btn {
+        padding: var(--spacing-sm) var(--spacing-md);
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .nav-menu {
+        display: none;
+    }
+    
+    .cta-button {
+        display: none;
+    }
+    
+    .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .btn {
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    .features h2,
+    .map-section h2,
+    .weather-section h2,
+    .community-section h2 {
+        font-size: 2rem;
+    }
+    
+    .map-container {
+        height: 300px;
+    }
+
+    .toast {
+        left: var(--spacing-lg);
+        right: var(--spacing-lg);
+        max-width: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 1.75rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+    
+    .container {
+        padding: 0 var(--spacing-md);
+    }
+    
+    .features-grid,
+    .weather-grid,
+    .testimonials {
+        grid-template-columns: 1fr;
+    }
+
+    .toast {
+        bottom: 10px;
+        left: 10px;
+        right: 10px;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: more) {
+    .navbar {
+        border-bottom: 3px solid var(--dark-gray);
+    }
+    
+    .feature-card,
+    .weather-card {
+        border: 2px solid var(--dark-gray);
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    .wave {
+        display: none;
+    }
+}

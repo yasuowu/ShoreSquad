@@ -1,5 +1,6 @@
 /* ========================================
    ShoreSquad - JavaScript Application
+   Robust Error Handling & Feedback System
    ======================================== */
 
 // Debounce utility for performance optimization
@@ -28,6 +29,87 @@ function throttle(func, limit) {
 }
 
 /* ========================================
+   Toast Notification System
+   ======================================== */
+
+class Toast {
+    static show(message, type = 'info', duration = 3000) {
+        try {
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.textContent = message;
+            document.body.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.animation = 'slideOutDown 0.3s ease-out';
+                setTimeout(() => toast.remove(), 300);
+            }, duration);
+
+            return toast;
+        } catch (error) {
+            console.error('Toast error:', error);
+        }
+    }
+
+    static success(message, duration = 3000) {
+        return this.show(message, 'success', duration);
+    }
+
+    static error(message, duration = 4000) {
+        return this.show(message, 'error', duration);
+    }
+
+    static warning(message, duration = 3500) {
+        return this.show(message, 'warning', duration);
+    }
+
+    static info(message, duration = 3000) {
+        return this.show(message, 'info', duration);
+    }
+}
+
+/* ========================================
+   Loading Overlay Manager
+   ======================================== */
+
+class LoadingOverlay {
+    static show(message = 'Loading...') {
+        try {
+            let overlay = document.getElementById('loading-overlay');
+            
+            if (!overlay) {
+                overlay = document.createElement('div');
+                overlay.id = 'loading-overlay';
+                overlay.className = 'spinner-overlay';
+                overlay.innerHTML = `
+                    <div style="text-align: center;">
+                        <div class="spinner"></div>
+                        <p style="margin-top: 16px; color: #666; font-weight: 500;">${message}</p>
+                    </div>
+                `;
+                document.body.appendChild(overlay);
+            } else {
+                overlay.style.display = 'flex';
+                overlay.querySelector('p').textContent = message;
+            }
+        } catch (error) {
+            console.error('LoadingOverlay error:', error);
+        }
+    }
+
+    static hide() {
+        try {
+            const overlay = document.getElementById('loading-overlay');
+            if (overlay) {
+                overlay.style.display = 'none';
+            }
+        } catch (error) {
+            console.error('LoadingOverlay hide error:', error);
+        }
+    }
+}
+
+/* ========================================
    Navigation & Scroll Behavior
    ======================================== */
 
@@ -40,50 +122,62 @@ class NavigationHandler {
     }
 
     init() {
-        // Handle navigation link clicks
-        this.navLinks.forEach(link => {
-            link.addEventListener('click', (e) => this.handleNavClick(e));
-        });
+        try {
+            // Handle navigation link clicks
+            this.navLinks.forEach(link => {
+                link.addEventListener('click', (e) => this.handleNavClick(e));
+            });
 
-        // Update active link on scroll
-        window.addEventListener('scroll', throttle(() => this.updateActiveLink(), 100));
+            // Update active link on scroll
+            window.addEventListener('scroll', throttle(() => this.updateActiveLink(), 100));
+        } catch (error) {
+            console.error('NavigationHandler init error:', error);
+        }
     }
 
     handleNavClick(e) {
-        e.preventDefault();
-        const href = e.target.getAttribute('href');
-        const targetId = href.substring(1);
-        const targetSection = document.getElementById(targetId);
+        try {
+            e.preventDefault();
+            const href = e.target.getAttribute('href');
+            const targetId = href.substring(1);
+            const targetSection = document.getElementById(targetId);
 
-        if (targetSection) {
-            // Update active link
-            this.navLinks.forEach(link => link.classList.remove('active'));
-            e.target.classList.add('active');
+            if (targetSection) {
+                // Update active link
+                this.navLinks.forEach(link => link.classList.remove('active'));
+                e.target.classList.add('active');
 
-            // Smooth scroll to section
-            targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                // Smooth scroll to section
+                targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        } catch (error) {
+            console.error('Navigation click error:', error);
         }
     }
 
     updateActiveLink() {
-        let currentSection = null;
+        try {
+            let currentSection = null;
 
-        // Find which section is in view
-        this.sections.forEach(section => {
-            const rect = section.getBoundingClientRect();
-            if (rect.top <= 100 && rect.bottom >= 100) {
-                currentSection = section.id;
-            }
-        });
-
-        // Update active link
-        if (currentSection) {
-            this.navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === `#${currentSection}`) {
-                    link.classList.add('active');
+            // Find which section is in view
+            this.sections.forEach(section => {
+                const rect = section.getBoundingClientRect();
+                if (rect.top <= 100 && rect.bottom >= 100) {
+                    currentSection = section.id;
                 }
             });
+
+            // Update active link
+            if (currentSection) {
+                this.navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${currentSection}`) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+        } catch (error) {
+            console.error('Active link update error:', error);
         }
     }
 }
@@ -100,71 +194,59 @@ class InteractiveFeatures {
     }
 
     init() {
-        // CTA button click handlers
-        this.ctaButtons.forEach(btn => {
-            btn.addEventListener('click', (e) => this.handleCTAClick(e));
-        });
+        try {
+            // CTA button click handlers
+            this.ctaButtons.forEach(btn => {
+                btn.addEventListener('click', (e) => this.handleCTAClick(e));
+            });
 
-        // Map filter buttons
-        this.filterButtons.forEach(btn => {
-            btn.addEventListener('click', (e) => this.handleFilterClick(e));
-        });
+            // Map filter buttons
+            this.filterButtons.forEach(btn => {
+                btn.addEventListener('click', (e) => this.handleFilterClick(e));
+            });
+        } catch (error) {
+            console.error('InteractiveFeatures init error:', error);
+        }
     }
 
     handleCTAClick(e) {
-        const btn = e.target;
-        const text = btn.textContent;
+        try {
+            const btn = e.target;
+            const text = btn.textContent.trim();
 
-        // Add feedback animation
-        btn.style.transform = 'scale(0.95)';
-        setTimeout(() => {
-            btn.style.transform = '';
-        }, 150);
+            // Add feedback animation
+            btn.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                btn.style.transform = '';
+            }, 150);
 
-        // Log user interaction (for analytics)
-        console.log(`User clicked: ${text}`);
+            // Log user interaction (for analytics)
+            console.log(`User clicked: ${text}`);
 
-        // Show toast notification
-        this.showNotification(`Starting: ${text}`, 'info');
+            // Show toast notification
+            Toast.success(`Action: ${text}`);
+        } catch (error) {
+            console.error('CTA click error:', error);
+            Toast.error('An error occurred. Please try again.');
+        }
     }
 
     handleFilterClick(e) {
-        const btn = e.target;
-        const filterType = btn.dataset.filter;
+        try {
+            const btn = e.target;
+            const filterType = btn.dataset.filter || 'unknown';
 
-        // Update active button
-        this.filterButtons.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
+            // Update active button
+            this.filterButtons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
 
-        // Simulate filter action
-        console.log(`Filtering by: ${filterType}`);
-        this.showNotification(`Filtering: ${filterType}`, 'info');
-    }
-
-    showNotification(message, type = 'info') {
-        // Create notification element
-        const notification = document.createElement('div');
-        notification.className = `notification notification-${type}`;
-        notification.textContent = message;
-        notification.style.cssText = `
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: ${type === 'info' ? '#0066cc' : '#4caf50'};
-            color: white;
-            padding: 12px 20px;
-            border-radius: 4px;
-            z-index: 1000;
-            animation: slideIn 0.3s ease-out;
-        `;
-
-        document.body.appendChild(notification);
-
-        // Auto-remove notification
-        setTimeout(() => {
-            notification.style.animation = 'slideOut 0.3s ease-out';
-            setTimeout(() => notification.remove(), 300);
-        }, 3000);
+            // Simulate filter action
+            console.log(`Filtering by: ${filterType}`);
+            Toast.info(`Showing: ${filterType} events`);
+        } catch (error) {
+            console.error('Filter click error:', error);
+            Toast.error('Filter failed. Please try again.');
+        }
     }
 }
 
@@ -182,26 +264,39 @@ class WeatherManager {
 
     async init() {
         try {
+            LoadingOverlay.show('Fetching weather data...');
+            
             // Fetch 4-day forecast data
             await this.fetchWeatherForecast();
+            
+            LoadingOverlay.hide();
         } catch (error) {
             console.error('Error initializing weather:', error);
+            LoadingOverlay.hide();
             this.showErrorState();
+            Toast.error('Failed to load weather data. Please refresh.');
         }
     }
 
     async fetchWeatherForecast() {
         try {
-            const response = await fetch(this.forecastEndpoint);
+            const response = await fetch(this.forecastEndpoint, {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
             
             if (!response.ok) {
-                throw new Error(`API error: ${response.status}`);
+                throw new Error(`API error: ${response.status} ${response.statusText}`);
             }
 
             const data = await response.json();
             this.parseAndDisplayForecast(data);
+            Toast.success('Weather forecast loaded!');
         } catch (error) {
             console.error('Failed to fetch weather forecast:', error);
+            Toast.warning('Forecast unavailable. Fetching current temperature...');
             // Fall back to current temperature API
             await this.fetchCurrentTemperature();
         }
@@ -209,117 +304,152 @@ class WeatherManager {
 
     async fetchCurrentTemperature() {
         try {
-            const response = await fetch(this.apiEndpoint);
+            const response = await fetch(this.apiEndpoint, {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
             
             if (!response.ok) {
-                throw new Error(`API error: ${response.status}`);
+                throw new Error(`API error: ${response.status} ${response.statusText}`);
             }
 
             const data = await response.json();
             this.parseAndDisplayTemperature(data);
+            Toast.success('Current temperature loaded!');
         } catch (error) {
             console.error('Failed to fetch temperature data:', error);
             this.showErrorState();
+            Toast.error('Unable to load weather data. Please check your internet connection.');
         }
     }
 
     parseAndDisplayForecast(data) {
-        if (!data.items || !data.items[0]) {
+        try {
+            if (!data.items || !data.items[0] || !data.items[0].forecasts) {
+                throw new Error('Invalid forecast data structure');
+            }
+
+            const forecasts = data.items[0].forecasts;
+            
+            // Display first 4 days of forecast
+            const displayForecasts = forecasts.slice(0, 4);
+
+            if (!this.weatherGrid) {
+                console.error('Weather grid element not found');
+                return;
+            }
+
+            this.weatherGrid.innerHTML = '';
+
+            displayForecasts.forEach((forecast, index) => {
+                try {
+                    const card = this.createWeatherCard(forecast, index);
+                    this.weatherGrid.appendChild(card);
+                } catch (cardError) {
+                    console.error(`Error creating weather card ${index}:`, cardError);
+                }
+            });
+        } catch (error) {
+            console.error('Error parsing forecast data:', error);
             this.showErrorState();
-            return;
         }
-
-        const forecasts = data.items[0].forecasts;
-        
-        // Display first 4 days of forecast
-        const displayForecasts = forecasts.slice(0, 4);
-
-        if (!this.weatherGrid) return;
-
-        this.weatherGrid.innerHTML = '';
-
-        displayForecasts.forEach((forecast, index) => {
-            const card = this.createWeatherCard(forecast, index);
-            this.weatherGrid.appendChild(card);
-        });
     }
 
     parseAndDisplayTemperature(data) {
-        if (!data.items || !data.items[0]) {
-            this.showErrorState();
-            return;
-        }
+        try {
+            if (!data.items || !data.items[0] || !data.items[0].readings) {
+                throw new Error('Invalid temperature data structure');
+            }
 
-        // Get temperature readings for Pasir Ris area
-        const readings = data.items[0].readings;
-        
-        // Find closest station to Pasir Ris
-        const pasirRisReading = readings.find(r => 
-            r.station_id === 'S109' || // Pasir Ris station
-            r.station_id === 'S81'   // Changi Airport (near Pasir Ris)
-        ) || readings[0];
-
-        if (!this.weatherGrid) return;
-
-        this.weatherGrid.innerHTML = '';
-
-        // Create 4 identical cards with current data as fallback
-        for (let i = 0; i < 4; i++) {
-            const card = document.createElement('div');
-            card.className = 'weather-card';
+            // Get temperature readings for Pasir Ris area
+            const readings = data.items[0].readings;
             
-            const dayName = this.getDayName(i);
-            const temp = Math.round(pasirRisReading.value);
+            // Find closest station to Pasir Ris
+            const pasirRisReading = readings.find(r => 
+                r.station_id === 'S109' || // Pasir Ris station
+                r.station_id === 'S81'   // Changi Airport (near Pasir Ris)
+            ) || readings[0];
 
-            card.innerHTML = `
-                <div class="weather-icon">${this.getWeatherIcon(i)}</div>
-                <h3>${dayName}</h3>
-                <p class="temp">${temp}°C</p>
-                <p class="condition">Temperature Reading</p>
-                <p class="humidity">Station: ${pasirRisReading.station_id}</p>
-            `;
+            if (!this.weatherGrid) return;
 
-            this.weatherGrid.appendChild(card);
+            this.weatherGrid.innerHTML = '';
+
+            // Create 4 cards with current data as fallback
+            for (let i = 0; i < 4; i++) {
+                const card = document.createElement('div');
+                card.className = 'weather-card';
+                
+                const dayName = this.getDayName(i);
+                const temp = Math.round(pasirRisReading.value);
+
+                card.innerHTML = `
+                    <div class="weather-icon">${this.getWeatherIcon(i)}</div>
+                    <h3>${dayName}</h3>
+                    <p class="temp">${temp}°C</p>
+                    <p class="condition">Temperature Reading</p>
+                    <p class="humidity">Station: ${pasirRisReading.station_id}</p>
+                `;
+
+                this.weatherGrid.appendChild(card);
+            }
+        } catch (error) {
+            console.error('Error parsing temperature data:', error);
+            this.showErrorState();
         }
     }
 
     createWeatherCard(forecast, index) {
-        const card = document.createElement('div');
-        card.className = 'weather-card';
+        try {
+            const card = document.createElement('div');
+            card.className = 'weather-card';
 
-        const date = new Date(forecast.date);
-        const dayName = this.formatDate(date);
-        
-        // Parse forecast text for better display
-        const forecast_text = forecast.forecast ? forecast.forecast.toLowerCase() : 'Fair';
-        const icon = this.mapWeatherIcon(forecast_text);
-        
-        // Extract temperature range if available
-        const tempInfo = forecast.relative_humidity 
-            ? `Humidity: ${forecast.relative_humidity}%`
-            : 'No data';
+            const date = new Date(forecast.date);
+            const dayName = this.formatDate(date);
+            
+            // Parse forecast text for better display
+            const forecast_text = forecast.forecast ? forecast.forecast.toLowerCase() : 'Fair';
+            const icon = this.mapWeatherIcon(forecast_text);
+            
+            // Extract temperature range if available
+            const tempInfo = forecast.relative_humidity 
+                ? `Humidity: ${forecast.relative_humidity}%`
+                : 'No data';
 
-        card.innerHTML = `
-            <div class="weather-icon">${icon}</div>
-            <h3>${dayName}</h3>
-            <p class="condition">${forecast.forecast || 'Fair'}</p>
-            <p class="wind">${tempInfo}</p>
-        `;
+            card.innerHTML = `
+                <div class="weather-icon">${icon}</div>
+                <h3>${dayName}</h3>
+                <p class="condition">${forecast.forecast || 'Fair'}</p>
+                <p class="wind">${tempInfo}</p>
+            `;
 
-        return card;
+            return card;
+        } catch (error) {
+            console.error('Error creating weather card:', error);
+            const card = document.createElement('div');
+            card.className = 'weather-card';
+            card.innerHTML = '<p style="color: #999;">Unable to display forecast</p>';
+            return card;
+        }
     }
 
     mapWeatherIcon(forecastText) {
-        if (forecastText.includes('rain') || forecastText.includes('thundery')) {
-            return '🌧️';
-        } else if (forecastText.includes('cloud') || forecastText.includes('overcast')) {
-            return '☁️';
-        } else if (forecastText.includes('fair') || forecastText.includes('clear')) {
-            return '☀️';
-        } else if (forecastText.includes('wind') || forecastText.includes('strong')) {
-            return '💨';
+        try {
+            if (forecastText.includes('rain') || forecastText.includes('thundery')) {
+                return '🌧️';
+            } else if (forecastText.includes('cloud') || forecastText.includes('overcast')) {
+                return '☁️';
+            } else if (forecastText.includes('fair') || forecastText.includes('clear')) {
+                return '☀️';
+            } else if (forecastText.includes('wind') || forecastText.includes('strong')) {
+                return '💨';
+            }
+            return '🌤️';
+        } catch (error) {
+            console.error('Error mapping weather icon:', error);
+            return '🌤️';
         }
-        return '🌤️';
     }
 
     getWeatherIcon(dayIndex) {
@@ -491,32 +621,43 @@ class PerformanceOptimizer {
    ======================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('🌊 ShoreSquad app initialized!');
+    try {
+        console.log('🌊 ShoreSquad app initializing...');
 
-    // Initialize all modules
-    const navigation = new NavigationHandler();
-    const features = new InteractiveFeatures();
-    const weather = new WeatherManager();
-    const accessibility = new AccessibilityManager();
-    const performance = new PerformanceOptimizer();
+        // Initialize all modules
+        const navigation = new NavigationHandler();
+        const features = new InteractiveFeatures();
+        const weather = new WeatherManager();
+        const accessibility = new AccessibilityManager();
+        const performance = new PerformanceOptimizer();
 
-    // Make globally accessible for debugging
-    window.ShoreSquad = {
-        navigation,
-        features,
-        weather,
-        accessibility,
-        performance
-    };
+        // Make globally accessible for debugging
+        window.ShoreSquad = {
+            navigation,
+            features,
+            weather,
+            accessibility,
+            performance,
+            Toast,
+            LoadingOverlay
+        };
 
-    // Add some welcome animation
-    const hero = document.querySelector('.hero');
-    if (hero) {
-        hero.style.opacity = '0';
-        setTimeout(() => {
-            hero.style.transition = 'opacity 0.6s ease-out';
-            hero.style.opacity = '1';
-        }, 100);
+        // Add some welcome animation
+        const hero = document.querySelector('.hero');
+        if (hero) {
+            hero.style.opacity = '0';
+            setTimeout(() => {
+                hero.style.transition = 'opacity 0.6s ease-out';
+                hero.style.opacity = '1';
+            }, 100);
+        }
+
+        console.log('✅ ShoreSquad initialized successfully!');
+        Toast.success('Welcome to ShoreSquad! 🌊', 2000);
+    } catch (error) {
+        console.error('Fatal initialization error:', error);
+        Toast.error('An error occurred during initialization. Please refresh the page.');
+        LoadingOverlay.hide();
     }
 });
 
@@ -547,6 +688,17 @@ style.textContent = `
         }
         to {
             transform: translateX(400px);
+            opacity: 0;
+        }
+    }
+
+    @keyframes slideOutDown {
+        from {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        to {
+            transform: translateY(100px);
             opacity: 0;
         }
     }
